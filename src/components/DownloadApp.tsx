@@ -1,5 +1,6 @@
 
 import { Button } from "@/components/ui/button";
+import { Heart } from "lucide-react";
 
 export const DownloadApp = () => {
   return (
