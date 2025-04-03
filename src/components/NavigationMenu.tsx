@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 
 export const NavigationMenu = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // For demo purposes
+  const [isLoggedIn, setIsLoggedIn] = useState(true); // Changed to true for demo purposes
   
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
@@ -97,7 +97,7 @@ export const NavigationMenu = () => {
                 {item.name}
               </Link>
             ))}
-            {!isLoggedIn && (
+            {!isLoggedIn ? (
               <>
                 <Link
                   to="/signin"
@@ -114,6 +114,14 @@ export const NavigationMenu = () => {
                   Register
                 </Link>
               </>
+            ) : (
+              <Link
+                to="/profile"
+                className="block py-2 px-3 text-gray-700 hover:text-blood-500 hover:bg-blood-50 rounded-md"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                My Profile
+              </Link>
             )}
           </div>
         </div>

@@ -9,6 +9,7 @@ import Testimonials from "@/components/Testimonials";
 import DownloadApp from "@/components/DownloadApp";
 import CTASection from "@/components/CTASection";
 import Footer from "@/components/Footer";
+import BloodDemandForecast from "@/components/BloodDemandForecast";
 
 const Index = () => {
   return (
@@ -30,6 +31,9 @@ const Index = () => {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               <BloodAvailabilityStats />
               <EmergencyRequests />
+              <div className="lg:col-span-2">
+                <BloodDemandForecast />
+              </div>
               <div className="lg:col-span-2">
                 <UpcomingEvents />
               </div>
