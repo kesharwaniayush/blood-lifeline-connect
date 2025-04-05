@@ -1,17 +1,42 @@
 
 import { useState } from "react";
-import { Link } from "react-router-dom";
-import { Heart, Menu, User, Search, Bell } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
+import { Heart, Menu, User, Search, Bell, LogOut, Shield } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { cn } from "@/lib/utils";
+import { useAuth } from "@/context/AuthContext";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 export const NavigationMenu = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(true); // Changed to true for demo purposes
+  const { user, logout, isAdmin } = useAuth();
+  const navigate = useNavigate();
   
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
+  };
+
+  const handleLogout = () => {
+    logout();
+    navigate("/");
+  };
+
+  const getInitials = () => {
+    if (!user || !user.name) return "U";
+    return user.name
+      .split(" ")
+      .map((part) => part[0])
+      .join("")
+      .toUpperCase()
+      .slice(0, 2);
   };
 
   const navItems = [
@@ -42,6 +67,15 @@ export const NavigationMenu = () => {
                 {item.name}
               </Link>
             ))}
+            {isAdmin() && (
+              <Link
+                to="/admin"
+                className="py-2 px-3 text-gray-700 hover:text-blood-500 rounded-md transition duration-200 flex items-center gap-1"
+              >
+                <Shield className="h-4 w-4" />
+                Admin
+              </Link>
+            )}
           </div>
 
           {/* User Actions */}
@@ -53,12 +87,38 @@ export const NavigationMenu = () => {
               <Bell className="h-5 w-5" />
             </Button>
             
-            {isLoggedIn ? (
-              <Link to="/profile">
-                <Avatar className="cursor-pointer">
-                  <AvatarFallback className="bg-blood-100 text-blood-600">JD</AvatarFallback>
-                </Avatar>
-              </Link>
+            {user ? (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Avatar className="cursor-pointer">
+                    <AvatarFallback className="bg-blood-100 text-blood-600">{getInitials()}</AvatarFallback>
+                  </Avatar>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-56">
+                  <DropdownMenuLabel>{user.name}</DropdownMenuLabel>
+                  <DropdownMenuLabel className="text-xs font-normal text-gray-500">{user.email}</DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem asChild>
+                    <Link to="/profile" className="cursor-pointer">
+                      <User className="mr-2 h-4 w-4" />
+                      <span>Profile</span>
+                    </Link>
+                  </DropdownMenuItem>
+                  {isAdmin() && (
+                    <DropdownMenuItem asChild>
+                      <Link to="/admin" className="cursor-pointer">
+                        <Shield className="mr-2 h-4 w-4" />
+                        <span>Admin Panel</span>
+                      </Link>
+                    </DropdownMenuItem>
+                  )}
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem onClick={handleLogout} className="cursor-pointer">
+                    <LogOut className="mr-2 h-4 w-4" />
+                    <span>Logout</span>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
             ) : (
               <div className="flex space-x-2">
                 <Button variant="outline" asChild>
@@ -97,7 +157,19 @@ export const NavigationMenu = () => {
                 {item.name}
               </Link>
             ))}
-            {!isLoggedIn ? (
+            
+            {isAdmin() && (
+              <Link
+                to="/admin"
+                className="block py-2 px-3 text-gray-700 hover:text-blood-500 hover:bg-blood-50 rounded-md flex items-center gap-1"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                <Shield className="h-4 w-4" />
+                Admin Panel
+              </Link>
+            )}
+            
+            {!user ? (
               <>
                 <Link
                   to="/signin"
@@ -115,13 +187,24 @@ export const NavigationMenu = () => {
                 </Link>
               </>
             ) : (
-              <Link
-                to="/profile"
-                className="block py-2 px-3 text-gray-700 hover:text-blood-500 hover:bg-blood-50 rounded-md"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                My Profile
-              </Link>
+              <>
+                <Link
+                  to="/profile"
+                  className="block py-2 px-3 text-gray-700 hover:text-blood-500 hover:bg-blood-50 rounded-md"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  My Profile
+                </Link>
+                <button
+                  onClick={() => {
+                    handleLogout();
+                    setMobileMenuOpen(false);
+                  }}
+                  className="w-full text-left block py-2 px-3 text-gray-700 hover:text-blood-500 hover:bg-blood-50 rounded-md"
+                >
+                  Logout
+                </button>
+              </>
             )}
           </div>
         </div>
