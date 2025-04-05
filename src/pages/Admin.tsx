@@ -2,6 +2,7 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/context/AuthContext";
+import { useToast } from "@/components/ui/use-toast";
 import NavigationMenu from "@/components/NavigationMenu";
 import Footer from "@/components/Footer";
 import AdminTable from "@/components/AdminTable";
@@ -9,13 +10,28 @@ import AdminTable from "@/components/AdminTable";
 const Admin = () => {
   const { user, isLoading, isAdmin } = useAuth();
   const navigate = useNavigate();
+  const { toast } = useToast();
 
-  // Redirect non-admin users
+  // Redirect non-admin users with a notification
   useEffect(() => {
-    if (!isLoading && (!user || !isAdmin())) {
-      navigate("/signin?redirect=admin");
+    if (!isLoading) {
+      if (!user) {
+        toast({
+          title: "Authentication required",
+          description: "Please sign in to access this page",
+          variant: "destructive",
+        });
+        navigate("/signin?redirect=admin");
+      } else if (!isAdmin()) {
+        toast({
+          title: "Access denied",
+          description: "You don't have permission to access the admin panel",
+          variant: "destructive",
+        });
+        navigate("/");
+      }
     }
-  }, [user, isLoading, navigate, isAdmin]);
+  }, [user, isLoading, navigate, isAdmin, toast]);
 
   if (isLoading) {
     return <div className="min-h-screen flex items-center justify-center">Loading...</div>;

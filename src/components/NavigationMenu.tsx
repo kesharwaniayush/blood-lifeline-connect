@@ -67,7 +67,8 @@ export const NavigationMenu = () => {
                 {item.name}
               </Link>
             ))}
-            {isAdmin() && (
+            {/* Only show admin link if user is an admin */}
+            {user && isAdmin() && (
               <Link
                 to="/admin"
                 className="py-2 px-3 text-gray-700 hover:text-blood-500 rounded-md transition duration-200 flex items-center gap-1"
@@ -104,6 +105,7 @@ export const NavigationMenu = () => {
                       <span>Profile</span>
                     </Link>
                   </DropdownMenuItem>
+                  {/* Only show admin menu item if user is an admin */}
                   {isAdmin() && (
                     <DropdownMenuItem asChild>
                       <Link to="/admin" className="cursor-pointer">
@@ -158,7 +160,8 @@ export const NavigationMenu = () => {
               </Link>
             ))}
             
-            {isAdmin() && (
+            {/* Only show admin link in mobile menu if user is an admin */}
+            {user && isAdmin() && (
               <Link
                 to="/admin"
                 className="block py-2 px-3 text-gray-700 hover:text-blood-500 hover:bg-blood-50 rounded-md flex items-center gap-1"
