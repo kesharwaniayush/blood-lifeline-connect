@@ -13,6 +13,7 @@ import SignIn from "./pages/SignIn";
 import Register from "./pages/Register";
 import NotFound from "./pages/NotFound";
 import DonorProfile from "./pages/DonorProfile";
+import DonorEligibility from "./pages/DonorEligibility";  // New import
 
 const queryClient = new QueryClient();
 
@@ -31,6 +32,7 @@ const App = () => (
           <Route path="/signin" element={<SignIn />} />
           <Route path="/register" element={<Register />} />
           <Route path="/profile" element={<DonorProfile />} />
+          <Route path="/eligibility" element={<DonorEligibility />} />  {/* New route */}
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
