@@ -4,8 +4,16 @@ import NavigationMenu from "@/components/NavigationMenu";
 import Footer from "@/components/Footer";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Search, MapPin, Phone } from "lucide-react";
+import { Search, MapPin, Phone, Heart, Hospital, Syringe } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { 
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselPrevious,
+  CarouselNext
+} from "@/components/ui/carousel";
+import { Card, CardContent } from "@/components/ui/card";
 
 // Sample donation centers data
 const donationCenters = [
@@ -17,6 +25,7 @@ const donationCenters = [
     hours: "Mon-Fri: 8AM-7PM, Sat: 9AM-5PM",
     isOpen: true,
     distance: "1.2 km",
+    icon: <Hospital className="h-8 w-8 text-blood-500" />,
   },
   {
     id: 2,
@@ -26,6 +35,7 @@ const donationCenters = [
     hours: "Mon-Sun: 24 hours",
     isOpen: true,
     distance: "3.5 km",
+    icon: <Heart className="h-8 w-8 text-blood-500" />,
   },
   {
     id: 3,
@@ -35,6 +45,7 @@ const donationCenters = [
     hours: "Mon-Fri: 9AM-6PM",
     isOpen: false,
     distance: "5.7 km",
+    icon: <Syringe className="h-8 w-8 text-blood-500" />,
   },
   {
     id: 4,
@@ -44,6 +55,7 @@ const donationCenters = [
     hours: "Mon-Fri: 7AM-8PM, Sat-Sun: 9AM-4PM",
     isOpen: true,
     distance: "4.3 km",
+    icon: <Hospital className="h-8 w-8 text-blood-500" />,
   },
   {
     id: 5,
@@ -53,7 +65,16 @@ const donationCenters = [
     hours: "Mon-Sun: 24 hours",
     isOpen: true,
     distance: "7.1 km",
+    icon: <Heart className="h-8 w-8 text-blood-500" />,
   },
+];
+
+// Blood donation images for carousel
+const donationImages = [
+  { src: "/images/donation1.jpg", alt: "Blood donation session" },
+  { src: "/images/donation2.jpg", alt: "Blood donation center" },
+  { src: "/images/donation3.jpg", alt: "Blood donation process" },
+  { src: "/images/donation4.jpg", alt: "Blood donation equipment" },
 ];
 
 const DonationCenters = () => {
@@ -75,8 +96,35 @@ const DonationCenters = () => {
     <div className="min-h-screen flex flex-col">
       <NavigationMenu />
       <div className="flex-grow container mx-auto px-4 py-8">
-        <h1 className="text-3xl font-bold mb-6">Blood Donation Centers</h1>
-        <p className="text-gray-600 mb-8">Find blood donation centers near you and get directions, contact information, and opening hours.</p>
+        <h1 className="text-3xl font-bold mb-2">Blood Donation Centers</h1>
+        <p className="text-gray-600 mb-6">Find blood donation centers near you and get directions, contact information, and opening hours.</p>
+        
+        {/* Photo Carousel */}
+        <div className="mb-8">
+          <Carousel className="w-full max-w-5xl mx-auto">
+            <CarouselContent>
+              {donationImages.map((image, index) => (
+                <CarouselItem key={index}>
+                  <div className="p-1">
+                    <Card>
+                      <CardContent className="flex aspect-video items-center justify-center p-0 overflow-hidden rounded-xl">
+                        <div className="relative w-full h-full bg-gray-200 flex items-center justify-center">
+                          <div className="absolute inset-0 flex items-center justify-center">
+                            <p className="text-gray-500">Image: {image.alt}</p>
+                          </div>
+                          {/* In a real application, this would be an actual image */}
+                          {/* <img src={image.src} alt={image.alt} className="w-full h-full object-cover" /> */}
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious className="left-2" />
+            <CarouselNext className="right-2" />
+          </Carousel>
+        </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Search and List Panel */}
@@ -102,7 +150,10 @@ const DonationCenters = () => {
                     onClick={() => handleCenterClick(center.id)}
                   >
                     <div className="flex justify-between items-start">
-                      <h3 className="font-semibold">{center.name}</h3>
+                      <div className="flex items-center gap-3">
+                        {center.icon}
+                        <h3 className="font-semibold">{center.name}</h3>
+                      </div>
                       <Badge
                         variant={center.isOpen ? "default" : "secondary"}
                         className={center.isOpen ? "bg-green-100 text-green-800 hover:bg-green-100" : "bg-gray-100 text-gray-800 hover:bg-gray-100"}
