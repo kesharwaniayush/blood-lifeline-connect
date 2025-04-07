@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import NavigationMenu from "@/components/NavigationMenu";
 import Footer from "@/components/Footer";
@@ -6,14 +5,6 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Search, MapPin, Phone, Heart, Hospital, Syringe } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import { 
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselPrevious,
-  CarouselNext
-} from "@/components/ui/carousel";
-import { Card, CardContent } from "@/components/ui/card";
 
 // Sample donation centers data
 const donationCenters = [
@@ -69,30 +60,6 @@ const donationCenters = [
   },
 ];
 
-// Blood donation images for carousel
-const donationImages = [
-  { 
-    src: "/images/donation1.jpg", 
-    alt: "A high-resolution photo of a person donating blood in a clinic, smiling nurse, clean and professional environment, warm lighting, realistic style."
-  },
-  { 
-    src: "/images/donation2.jpg", 
-    alt: "Happy diverse group of people donating blood together in a bright hospital setting, modern equipment, friendly atmosphere."
-  },
-  { 
-    src: "/images/donation3.jpg", 
-    alt: "Close-up of a blood bag with a red cross symbol, donation concept, medical theme, soft focus background."
-  },
-  { 
-    src: "/images/donation4.jpg", 
-    alt: "Volunteers organizing a blood donation camp, banners with 'Donate Blood, Save Lives' text, community event vibe."
-  },
-  { 
-    src: "/images/donation5.jpg", 
-    alt: "A doctor holding a blood donation certificate, smiling, hospital background, professional and trustworthy look."
-  },
-];
-
 const DonationCenters = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCenter, setSelectedCenter] = useState<number | null>(null);
@@ -115,32 +82,6 @@ const DonationCenters = () => {
         <h1 className="text-3xl font-bold mb-2">Blood Donation Centers</h1>
         <p className="text-gray-600 mb-6">Find blood donation centers near you and get directions, contact information, and opening hours.</p>
         
-        {/* Photo Carousel */}
-        <div className="mb-8">
-          <Carousel className="w-full max-w-5xl mx-auto">
-            <CarouselContent>
-              {donationImages.map((image, index) => (
-                <CarouselItem key={index}>
-                  <div className="p-1">
-                    <Card>
-                      <CardContent className="flex aspect-video items-center justify-center p-0 overflow-hidden rounded-xl">
-                        <div className="relative w-full h-full bg-gray-200 flex items-center justify-center">
-                          {/* In a real application, this would be an actual image */}
-                          <div className="absolute inset-0 flex items-center justify-center p-4">
-                            <p className="text-sm text-gray-600 text-center">{image.alt}</p>
-                          </div>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  </div>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-            <CarouselPrevious className="left-2" />
-            <CarouselNext className="right-2" />
-          </Carousel>
-        </div>
-
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Search and List Panel */}
           <div className="lg:col-span-1 space-y-6">
