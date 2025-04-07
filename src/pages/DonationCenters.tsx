@@ -71,10 +71,26 @@ const donationCenters = [
 
 // Blood donation images for carousel
 const donationImages = [
-  { src: "/images/donation1.jpg", alt: "Blood donation session" },
-  { src: "/images/donation2.jpg", alt: "Blood donation center" },
-  { src: "/images/donation3.jpg", alt: "Blood donation process" },
-  { src: "/images/donation4.jpg", alt: "Blood donation equipment" },
+  { 
+    src: "/images/donation1.jpg", 
+    alt: "A high-resolution photo of a person donating blood in a clinic, smiling nurse, clean and professional environment, warm lighting, realistic style."
+  },
+  { 
+    src: "/images/donation2.jpg", 
+    alt: "Happy diverse group of people donating blood together in a bright hospital setting, modern equipment, friendly atmosphere."
+  },
+  { 
+    src: "/images/donation3.jpg", 
+    alt: "Close-up of a blood bag with a red cross symbol, donation concept, medical theme, soft focus background."
+  },
+  { 
+    src: "/images/donation4.jpg", 
+    alt: "Volunteers organizing a blood donation camp, banners with 'Donate Blood, Save Lives' text, community event vibe."
+  },
+  { 
+    src: "/images/donation5.jpg", 
+    alt: "A doctor holding a blood donation certificate, smiling, hospital background, professional and trustworthy look."
+  },
 ];
 
 const DonationCenters = () => {
@@ -109,11 +125,10 @@ const DonationCenters = () => {
                     <Card>
                       <CardContent className="flex aspect-video items-center justify-center p-0 overflow-hidden rounded-xl">
                         <div className="relative w-full h-full bg-gray-200 flex items-center justify-center">
-                          <div className="absolute inset-0 flex items-center justify-center">
-                            <p className="text-gray-500">Image: {image.alt}</p>
-                          </div>
                           {/* In a real application, this would be an actual image */}
-                          {/* <img src={image.src} alt={image.alt} className="w-full h-full object-cover" /> */}
+                          <div className="absolute inset-0 flex items-center justify-center p-4">
+                            <p className="text-sm text-gray-600 text-center">{image.alt}</p>
+                          </div>
                         </div>
                       </CardContent>
                     </Card>
