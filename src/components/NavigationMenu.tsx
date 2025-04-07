@@ -1,23 +1,17 @@
 
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Heart, Menu, User, Search, Bell, LogOut, Shield } from "lucide-react";
+import { Heart, Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { cn } from "@/lib/utils";
 import { useAuth } from "@/context/AuthContext";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+import { DesktopMenu } from "@/components/navigation/DesktopMenu";
+import { UserActions } from "@/components/navigation/UserActions";
+import { MobileMenu } from "@/components/navigation/MobileMenu";
+import { NavItem } from "@/components/navigation/types";
 
 export const NavigationMenu = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const { user, logout, isAdmin } = useAuth();
+  const { logout } = useAuth();
   const navigate = useNavigate();
   
   const toggleMobileMenu = () => {
@@ -29,17 +23,7 @@ export const NavigationMenu = () => {
     navigate("/");
   };
 
-  const getInitials = () => {
-    if (!user || !user.name) return "U";
-    return user.name
-      .split(" ")
-      .map((part) => part[0])
-      .join("")
-      .toUpperCase()
-      .slice(0, 2);
-  };
-
-  const navItems = [
+  const navItems: NavItem[] = [
     { name: "Find Donors", path: "/donors" },
     { name: "Request Blood", path: "/request" },
     { name: "Donation Centers", path: "/centers" },
@@ -57,81 +41,10 @@ export const NavigationMenu = () => {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-1">
-            {navItems.map((item) => (
-              <Link
-                key={item.name}
-                to={item.path}
-                className="py-2 px-3 text-gray-700 hover:text-blood-500 rounded-md transition duration-200"
-              >
-                {item.name}
-              </Link>
-            ))}
-            {/* Only show admin link if user is an admin */}
-            {user && isAdmin() && (
-              <Link
-                to="/admin"
-                className="py-2 px-3 text-gray-700 hover:text-blood-500 rounded-md transition duration-200 flex items-center gap-1"
-              >
-                <Shield className="h-4 w-4" />
-                Admin
-              </Link>
-            )}
-          </div>
+          <DesktopMenu navItems={navItems} />
 
           {/* User Actions */}
-          <div className="hidden md:flex items-center space-x-2">
-            <Button variant="ghost" size="icon">
-              <Search className="h-5 w-5" />
-            </Button>
-            <Button variant="ghost" size="icon">
-              <Bell className="h-5 w-5" />
-            </Button>
-            
-            {user ? (
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Avatar className="cursor-pointer">
-                    <AvatarFallback className="bg-blood-100 text-blood-600">{getInitials()}</AvatarFallback>
-                  </Avatar>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-56">
-                  <DropdownMenuLabel>{user.name}</DropdownMenuLabel>
-                  <DropdownMenuLabel className="text-xs font-normal text-gray-500">{user.email}</DropdownMenuLabel>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem asChild>
-                    <Link to="/profile" className="cursor-pointer">
-                      <User className="mr-2 h-4 w-4" />
-                      <span>Profile</span>
-                    </Link>
-                  </DropdownMenuItem>
-                  {/* Only show admin menu item if user is an admin */}
-                  {isAdmin() && (
-                    <DropdownMenuItem asChild>
-                      <Link to="/admin" className="cursor-pointer">
-                        <Shield className="mr-2 h-4 w-4" />
-                        <span>Admin Panel</span>
-                      </Link>
-                    </DropdownMenuItem>
-                  )}
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem onClick={handleLogout} className="cursor-pointer">
-                    <LogOut className="mr-2 h-4 w-4" />
-                    <span>Logout</span>
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-            ) : (
-              <div className="flex space-x-2">
-                <Button variant="outline" asChild>
-                  <Link to="/signin">Sign in</Link>
-                </Button>
-                <Button asChild>
-                  <Link to="/register">Register</Link>
-                </Button>
-              </div>
-            )}
-          </div>
+          <UserActions onLogout={handleLogout} />
 
           {/* Mobile menu button */}
           <div className="md:hidden">
@@ -142,75 +55,12 @@ export const NavigationMenu = () => {
         </div>
 
         {/* Mobile Navigation */}
-        <div
-          className={cn(
-            "md:hidden",
-            mobileMenuOpen ? "block" : "hidden"
-          )}
-        >
-          <div className="pt-2 pb-3 space-y-1">
-            {navItems.map((item) => (
-              <Link
-                key={item.name}
-                to={item.path}
-                className="block py-2 px-3 text-gray-700 hover:text-blood-500 hover:bg-blood-50 rounded-md"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                {item.name}
-              </Link>
-            ))}
-            
-            {/* Only show admin link in mobile menu if user is an admin */}
-            {user && isAdmin() && (
-              <Link
-                to="/admin"
-                className="block py-2 px-3 text-gray-700 hover:text-blood-500 hover:bg-blood-50 rounded-md flex items-center gap-1"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                <Shield className="h-4 w-4" />
-                Admin Panel
-              </Link>
-            )}
-            
-            {!user ? (
-              <>
-                <Link
-                  to="/signin"
-                  className="block py-2 px-3 text-gray-700 hover:text-blood-500 hover:bg-blood-50 rounded-md"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  Sign in
-                </Link>
-                <Link
-                  to="/register"
-                  className="block py-2 px-3 text-gray-700 hover:text-blood-500 hover:bg-blood-50 rounded-md"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  Register
-                </Link>
-              </>
-            ) : (
-              <>
-                <Link
-                  to="/profile"
-                  className="block py-2 px-3 text-gray-700 hover:text-blood-500 hover:bg-blood-50 rounded-md"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  My Profile
-                </Link>
-                <button
-                  onClick={() => {
-                    handleLogout();
-                    setMobileMenuOpen(false);
-                  }}
-                  className="w-full text-left block py-2 px-3 text-gray-700 hover:text-blood-500 hover:bg-blood-50 rounded-md"
-                >
-                  Logout
-                </button>
-              </>
-            )}
-          </div>
-        </div>
+        <MobileMenu 
+          isOpen={mobileMenuOpen} 
+          navItems={navItems} 
+          onClose={() => setMobileMenuOpen(false)} 
+          onLogout={handleLogout} 
+        />
       </div>
     </nav>
   );
