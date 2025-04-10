@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import NavigationMenu from "@/components/NavigationMenu";
 import Footer from "@/components/Footer";
@@ -10,9 +9,9 @@ import { MapPin, Calendar, Award, Gift, Trophy, Heart, Star } from "lucide-react
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
-// Sample data - in a real app this would come from API/database
+// Sample data with Indian names
 const donorData = {
-  name: "John Doe",
+  name: "Rajesh Kumar",
   bloodType: "O+",
   joinDate: "March 2023",
   donations: 7,
@@ -61,21 +60,21 @@ const badgesData = [
 const rewardsData = [
   {
     id: 1,
-    name: "15% off at MedPlus",
+    name: "15% off at Apollo Pharmacy",
     points: 500,
     expiresIn: "30 days",
     logo: "https://placeholder.com/logo1.png"
   },
   {
     id: 2,
-    name: "Free Health Checkup",
+    name: "Free Health Checkup at Fortis",
     points: 1200,
     expiresIn: "None",
     logo: "https://placeholder.com/logo2.png"
   },
   {
     id: 3,
-    name: "Movie Ticket Voucher",
+    name: "PVR Movie Ticket Voucher",
     points: 800,
     expiresIn: "60 days",
     logo: "https://placeholder.com/logo3.png"
@@ -83,21 +82,21 @@ const rewardsData = [
 ];
 
 const donationHistoryData = [
-  { id: 1, date: "14 Mar 2023", location: "City Hospital", type: "Whole Blood", points: 200 },
-  { id: 2, date: "18 Jun 2023", location: "Blood Bank Central", type: "Plasma", points: 250 },
-  { id: 3, date: "5 Oct 2023", location: "Community Camp", type: "Whole Blood", points: 200 },
-  { id: 4, date: "22 Dec 2023", location: "City Hospital", type: "Platelets", points: 300 },
-  { id: 5, date: "8 Mar 2024", location: "Medical College", type: "Whole Blood", points: 200 },
-  { id: 6, date: "14 Jul 2024", location: "Blood Bank Central", type: "Whole Blood", points: 200 },
-  { id: 7, date: "18 Dec 2024", location: "City Hospital", type: "Plasma", points: 250 }
+  { id: 1, date: "14 Mar 2023", location: "Lilavati Hospital", type: "Whole Blood", points: 200 },
+  { id: 2, date: "18 Jun 2023", location: "Blood Bank Central, Mumbai", type: "Plasma", points: 250 },
+  { id: 3, date: "5 Oct 2023", location: "Community Camp, Andheri", type: "Whole Blood", points: 200 },
+  { id: 4, date: "22 Dec 2023", location: "Hinduja Hospital", type: "Platelets", points: 300 },
+  { id: 5, date: "8 Mar 2024", location: "KEM Medical College", type: "Whole Blood", points: 200 },
+  { id: 6, date: "14 Jul 2024", location: "Blood Bank Central, Mumbai", type: "Whole Blood", points: 200 },
+  { id: 7, date: "18 Dec 2024", location: "Lilavati Hospital", type: "Plasma", points: 250 }
 ];
 
 const topDonorsData = [
-  { id: 1, name: "Priya S.", donations: 15, points: 3200, bloodType: "B+" },
-  { id: 2, name: "Rahul M.", donations: 12, points: 2750, bloodType: "A-" },
-  { id: 3, name: "John Doe", donations: 7, points: 1450, bloodType: "O+" },
-  { id: 4, name: "Amit K.", donations: 6, points: 1350, bloodType: "AB+" },
-  { id: 5, name: "Lisa T.", donations: 5, points: 1100, bloodType: "O-" }
+  { id: 1, name: "Priya Sharma", donations: 15, points: 3200, bloodType: "B+" },
+  { id: 2, name: "Rahul Khanna", donations: 12, points: 2750, bloodType: "A-" },
+  { id: 3, name: "Rajesh Kumar", donations: 7, points: 1450, bloodType: "O+" },
+  { id: 4, name: "Amit Patel", donations: 6, points: 1350, bloodType: "AB+" },
+  { id: 5, name: "Divya Malhotra", donations: 5, points: 1100, bloodType: "O-" }
 ];
 
 const DonorProfile = () => {
