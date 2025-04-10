@@ -2,21 +2,14 @@
 import { useState } from "react";
 import NavigationMenu from "@/components/NavigationMenu";
 import Footer from "@/components/Footer";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { Search, MapPin, Phone, Heart, Hospital, Syringe } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
-import { 
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselPrevious,
-  CarouselNext
-} from "@/components/ui/carousel";
-import { Card, CardContent } from "@/components/ui/card";
+import { Heart, Hospital, Syringe } from "lucide-react";
+import SearchPanel from "@/components/donation-centers/SearchPanel";
+import MapView from "@/components/donation-centers/MapView";
+import ImageCarousel from "@/components/donation-centers/ImageCarousel";
+import { DonationCenter, DonationImage } from "@/types/donation-center";
 
 // Sample donation centers data with Indian names and locations
-const donationCenters = [
+const donationCenters: DonationCenter[] = [
   {
     id: 1,
     name: "City Blood Bank",
@@ -70,7 +63,7 @@ const donationCenters = [
 ];
 
 // Blood donation images for carousel
-const donationImages = [
+const donationImages: DonationImage[] = [
   { 
     src: "/images/donation1.jpg", 
     alt: "A high-resolution photo of a person donating blood in a clinic, smiling nurse, clean and professional environment, warm lighting, realistic style."
@@ -116,120 +109,23 @@ const DonationCenters = () => {
         <p className="text-gray-600 mb-6">Find blood donation centers near you and get directions, contact information, and opening hours.</p>
         
         {/* Photo Carousel */}
-        <div className="mb-8">
-          <Carousel className="w-full max-w-5xl mx-auto">
-            <CarouselContent>
-              {donationImages.map((image, index) => (
-                <CarouselItem key={index}>
-                  <div className="p-1">
-                    <Card>
-                      <CardContent className="flex aspect-video items-center justify-center p-0 overflow-hidden rounded-xl">
-                        <div className="relative w-full h-full bg-gray-200 flex items-center justify-center">
-                          {/* In a real application, this would be an actual image */}
-                          <div className="absolute inset-0 flex items-center justify-center p-4">
-                            <p className="text-sm text-gray-600 text-center">{image.alt}</p>
-                          </div>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  </div>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-            <CarouselPrevious className="left-2" />
-            <CarouselNext className="right-2" />
-          </Carousel>
-        </div>
+        <ImageCarousel images={donationImages} />
         
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Search and List Panel */}
           <div className="lg:col-span-1 space-y-6">
-            <div className="bg-white p-6 rounded-lg shadow-md">
-              <div className="relative mb-4">
-                <Input
-                  placeholder="Search centers or addresses"
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-10"
-                />
-                <Search className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
-              </div>
-              
-              <div className="space-y-3 max-h-[600px] overflow-y-auto">
-                {filteredCenters.map((center) => (
-                  <div
-                    key={center.id}
-                    className={`border rounded-lg p-4 cursor-pointer transition-colors ${
-                      selectedCenter === center.id ? "border-blood-500 bg-blood-50" : "border-gray-200 hover:border-blood-300"
-                    }`}
-                    onClick={() => handleCenterClick(center.id)}
-                  >
-                    <div className="flex justify-between items-start">
-                      <div className="flex items-center gap-3">
-                        {center.icon}
-                        <h3 className="font-semibold">{center.name}</h3>
-                      </div>
-                      <Badge
-                        variant={center.isOpen ? "default" : "secondary"}
-                        className={center.isOpen ? "bg-green-100 text-green-800 hover:bg-green-100" : "bg-gray-100 text-gray-800 hover:bg-gray-100"}
-                      >
-                        {center.isOpen ? "Open Now" : "Closed"}
-                      </Badge>
-                    </div>
-                    <div className="flex items-center mt-2 text-sm text-gray-500">
-                      <MapPin className="h-3.5 w-3.5 mr-1" />
-                      <span>{center.address}</span>
-                    </div>
-                    <div className="flex items-center mt-1 text-sm text-gray-500">
-                      <Phone className="h-3.5 w-3.5 mr-1" />
-                      <span>{center.phone}</span>
-                    </div>
-                    <div className="mt-2 text-xs text-gray-500">
-                      {center.hours}
-                    </div>
-                    <div className="mt-3 text-xs font-medium text-blood-600">
-                      {center.distance} from your location
-                    </div>
-                  </div>
-                ))}
-
-                {filteredCenters.length === 0 && (
-                  <div className="text-center py-4 text-gray-500">
-                    No centers found matching your search.
-                  </div>
-                )}
-              </div>
-            </div>
+            <SearchPanel 
+              centers={donationCenters}
+              searchTerm={searchTerm}
+              onSearchChange={setSearchTerm}
+              selectedCenter={selectedCenter}
+              onCenterClick={handleCenterClick}
+            />
           </div>
           
           {/* Map Panel */}
           <div className="lg:col-span-2">
-            <div className="bg-white p-6 rounded-lg shadow-md h-[600px] flex flex-col">
-              <div className="flex-grow relative bg-gray-100 rounded-lg overflow-hidden">
-                {/* Map placeholder - in a real app, this would be replaced with an actual map component */}
-                <div className="absolute inset-0 bg-gray-200 flex items-center justify-center">
-                  <div className="text-center">
-                    <MapPin className="h-12 w-12 text-blood-400 mx-auto mb-2" />
-                    <p className="text-gray-600">Map view showing donation centers</p>
-                    <p className="text-sm text-gray-500 mt-1">Interactive map integration coming soon</p>
-                  </div>
-                </div>
-              </div>
-              
-              {/* Map controls */}
-              <div className="mt-4 flex justify-between items-center">
-                <span className="text-sm text-gray-500">Showing {filteredCenters.length} centers</span>
-                <div className="flex space-x-2">
-                  <Button variant="outline" size="sm">
-                    <MapPin className="h-4 w-4 mr-1" />
-                    My Location
-                  </Button>
-                  <Button variant="default" size="sm">
-                    Get Directions
-                  </Button>
-                </div>
-              </div>
-            </div>
+            <MapView filteredCenters={filteredCenters} />
           </div>
         </div>
       </div>
