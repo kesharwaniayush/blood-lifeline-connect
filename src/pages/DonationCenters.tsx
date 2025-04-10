@@ -62,27 +62,27 @@ const donationCenters: DonationCenter[] = [
   },
 ];
 
-// Blood donation images for carousel
+// Indian blood donation images for carousel
 const donationImages: DonationImage[] = [
   { 
-    src: "/images/donation1.jpg", 
-    alt: "A high-resolution photo of a person donating blood in a clinic, smiling nurse, clean and professional environment, warm lighting, realistic style."
+    src: "https://images.unsplash.com/photo-1615461066841-6116e61058f4?auto=format&fit=crop&w=1000&q=80", 
+    alt: "Indian blood donation camp with volunteers and donors in Mumbai"
   },
   { 
-    src: "/images/donation2.jpg", 
-    alt: "Happy diverse group of people donating blood together in a bright hospital setting, modern equipment, friendly atmosphere."
+    src: "https://images.unsplash.com/photo-1579154204601-01588f351e67?auto=format&fit=crop&w=1000&q=80", 
+    alt: "Doctor examining blood samples at Red Cross blood donation drive in Delhi"
   },
   { 
-    src: "/images/donation3.jpg", 
-    alt: "Close-up of a blood bag with a red cross symbol, donation concept, medical theme, soft focus background."
+    src: "https://images.unsplash.com/photo-1606206429912-de48525940a5?auto=format&fit=crop&w=1000&q=80", 
+    alt: "Young Indian donor donating blood at a hospital in Bangalore"
   },
   { 
-    src: "/images/donation4.jpg", 
-    alt: "Volunteers organizing a blood donation camp, banners with 'Donate Blood, Save Lives' text, community event vibe."
+    src: "https://images.unsplash.com/photo-1583912086096-8c60d75a53f9?auto=format&fit=crop&w=1000&q=80", 
+    alt: "Community blood donation event with banners in Hindi and English in Hyderabad"
   },
   { 
-    src: "/images/donation5.jpg", 
-    alt: "A doctor holding a blood donation certificate, smiling, hospital background, professional and trustworthy look."
+    src: "https://images.unsplash.com/photo-1579154204914-4902c0adaab5?auto=format&fit=crop&w=1000&q=80", 
+    alt: "Medical professional preparing blood donation equipment at AIIMS hospital"
   },
 ];
 

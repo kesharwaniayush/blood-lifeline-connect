@@ -23,12 +23,11 @@ const ImageCarousel = ({ images }: ImageCarouselProps) => {
               <div className="p-1">
                 <Card>
                   <CardContent className="flex aspect-video items-center justify-center p-0 overflow-hidden rounded-xl">
-                    <div className="relative w-full h-full bg-gray-200 flex items-center justify-center">
-                      {/* In a real application, this would be an actual image */}
-                      <div className="absolute inset-0 flex items-center justify-center p-4">
-                        <p className="text-sm text-gray-600 text-center">{image.alt}</p>
-                      </div>
-                    </div>
+                    <img 
+                      src={image.src} 
+                      alt={image.alt} 
+                      className="w-full h-full object-cover"
+                    />
                   </CardContent>
                 </Card>
               </div>
