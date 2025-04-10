@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Search, MapPin, User } from "lucide-react";
 import NavigationMenu from "@/components/NavigationMenu";
@@ -10,45 +11,45 @@ import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@
 const donors = [
   {
     id: 1,
-    name: "John Doe",
+    name: "Rajesh Kumar",
     bloodType: "O+",
-    location: "New York City",
+    location: "Mumbai",
     lastDonation: "2025-03-01",
     status: "available",
     distance: "2.5 km",
   },
   {
     id: 2,
-    name: "Jane Smith",
+    name: "Priya Sharma",
     bloodType: "A-",
-    location: "Brooklyn",
+    location: "Delhi",
     lastDonation: "2025-03-15",
     status: "available",
     distance: "5.3 km",
   },
   {
     id: 3,
-    name: "Michael Johnson",
+    name: "Amit Patel",
     bloodType: "B+",
-    location: "Queens",
+    location: "Ahmedabad",
     lastDonation: "2025-02-20",
     status: "unavailable",
     distance: "8.1 km",
   },
   {
     id: 4,
-    name: "Sarah Williams",
+    name: "Sonia Singh",
     bloodType: "AB-",
-    location: "Bronx",
+    location: "Bengaluru",
     lastDonation: "2025-01-10",
     status: "available",
     distance: "10.7 km",
   },
   {
     id: 5,
-    name: "Robert Davis",
+    name: "Vikram Reddy",
     bloodType: "O-",
-    location: "Manhattan",
+    location: "Hyderabad",
     lastDonation: "2025-02-05",
     status: "available",
     distance: "3.2 km",

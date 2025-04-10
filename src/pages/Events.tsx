@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import NavigationMenu from "@/components/NavigationMenu";
 import Footer from "@/components/Footer";
@@ -8,60 +7,60 @@ import { MapPin, Calendar as CalendarIcon, User } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { format } from "date-fns";
 
-// Sample events data
+// Sample events data with Indian names and locations
 const events = [
   {
     id: 1,
     title: "Community Blood Drive",
-    location: "Central Park Community Center",
-    address: "123 Park Avenue, New York, NY",
+    location: "Shivaji Park Community Center",
+    address: "123 Dadar West, Mumbai, Maharashtra",
     date: new Date(2025, 3, 15), // April 15, 2025
     time: "9:00 AM - 4:00 PM",
-    organizer: "Red Cross",
+    organizer: "Indian Red Cross Society",
     registered: 45,
     capacity: 100,
   },
   {
     id: 2,
     title: "Corporate Donation Camp",
-    location: "TechHub Office Building",
-    address: "456 Madison Ave, New York, NY",
+    location: "Infosys Office Building",
+    address: "456 Electronics City, Bengaluru, Karnataka",
     date: new Date(2025, 3, 20), // April 20, 2025
     time: "10:00 AM - 2:00 PM",
-    organizer: "TechHub & Blood Services",
+    organizer: "Infosys & Blood Services",
     registered: 32,
     capacity: 50,
   },
   {
     id: 3,
     title: "University Blood Drive",
-    location: "State University Auditorium",
-    address: "789 University Way, New York, NY",
+    location: "Delhi University North Campus",
+    address: "789 University Road, New Delhi, Delhi",
     date: new Date(2025, 3, 25), // April 25, 2025
     time: "9:00 AM - 5:00 PM",
-    organizer: "State University Health Services",
+    organizer: "Delhi University Health Services",
     registered: 67,
     capacity: 120,
   },
   {
     id: 4,
     title: "Neighborhood Blood Donation",
-    location: "Westside Community Hall",
-    address: "321 West End Ave, New York, NY",
+    location: "Bandra Community Hall",
+    address: "321 Hill Road, Mumbai, Maharashtra",
     date: new Date(2025, 4, 5), // May 5, 2025
     time: "11:00 AM - 6:00 PM",
-    organizer: "Westside Neighborhood Association",
+    organizer: "Bandra Neighborhood Association",
     registered: 28,
     capacity: 80,
   },
   {
     id: 5,
     title: "Hospital Donation Day",
-    location: "General Hospital",
-    address: "555 Medical Plaza, New York, NY",
+    location: "AIIMS Hospital",
+    address: "555 Safdurjung Enclave, New Delhi, Delhi",
     date: new Date(2025, 4, 12), // May 12, 2025
     time: "8:00 AM - 8:00 PM",
-    organizer: "General Hospital Blood Bank",
+    organizer: "AIIMS Blood Bank",
     registered: 93,
     capacity: 200,
   },

@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import NavigationMenu from "@/components/NavigationMenu";
 import Footer from "@/components/Footer";
@@ -5,14 +6,22 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Search, MapPin, Phone, Heart, Hospital, Syringe } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { 
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselPrevious,
+  CarouselNext
+} from "@/components/ui/carousel";
+import { Card, CardContent } from "@/components/ui/card";
 
-// Sample donation centers data
+// Sample donation centers data with Indian names and locations
 const donationCenters = [
   {
     id: 1,
     name: "City Blood Bank",
-    address: "123 Main St, New York, NY 10001",
-    phone: "(212) 555-1234",
+    address: "123 MG Road, Mumbai, Maharashtra 400001",
+    phone: "+91 98765 43210",
     hours: "Mon-Fri: 8AM-7PM, Sat: 9AM-5PM",
     isOpen: true,
     distance: "1.2 km",
@@ -20,9 +29,9 @@ const donationCenters = [
   },
   {
     id: 2,
-    name: "Memorial Hospital Blood Center",
-    address: "456 Park Ave, New York, NY 10022",
-    phone: "(212) 555-5678",
+    name: "Apollo Hospital Blood Center",
+    address: "456 Nehru Place, New Delhi, Delhi 110019",
+    phone: "+91 99876 54321",
     hours: "Mon-Sun: 24 hours",
     isOpen: true,
     distance: "3.5 km",
@@ -31,8 +40,8 @@ const donationCenters = [
   {
     id: 3,
     name: "Community Donation Center",
-    address: "789 Broadway, New York, NY 10003",
-    phone: "(212) 555-9012",
+    address: "789 Paldi, Ahmedabad, Gujarat 380007",
+    phone: "+91 98123 45678",
     hours: "Mon-Fri: 9AM-6PM",
     isOpen: false,
     distance: "5.7 km",
@@ -40,9 +49,9 @@ const donationCenters = [
   },
   {
     id: 4,
-    name: "Downtown Blood Donation Clinic",
-    address: "321 Wall St, New York, NY 10005",
-    phone: "(212) 555-3456",
+    name: "Jayadeva Blood Donation Clinic",
+    address: "321 Brigade Road, Bengaluru, Karnataka 560001",
+    phone: "+91 97654 32109",
     hours: "Mon-Fri: 7AM-8PM, Sat-Sun: 9AM-4PM",
     isOpen: true,
     distance: "4.3 km",
@@ -50,13 +59,37 @@ const donationCenters = [
   },
   {
     id: 5,
-    name: "University Medical Center",
-    address: "555 College Rd, New York, NY 10016",
-    phone: "(212) 555-7890",
+    name: "AIIMS Medical Center",
+    address: "555 Banjara Hills, Hyderabad, Telangana 500034",
+    phone: "+91 95678 90123",
     hours: "Mon-Sun: 24 hours",
     isOpen: true,
     distance: "7.1 km",
     icon: <Heart className="h-8 w-8 text-blood-500" />,
+  },
+];
+
+// Blood donation images for carousel
+const donationImages = [
+  { 
+    src: "/images/donation1.jpg", 
+    alt: "A high-resolution photo of a person donating blood in a clinic, smiling nurse, clean and professional environment, warm lighting, realistic style."
+  },
+  { 
+    src: "/images/donation2.jpg", 
+    alt: "Happy diverse group of people donating blood together in a bright hospital setting, modern equipment, friendly atmosphere."
+  },
+  { 
+    src: "/images/donation3.jpg", 
+    alt: "Close-up of a blood bag with a red cross symbol, donation concept, medical theme, soft focus background."
+  },
+  { 
+    src: "/images/donation4.jpg", 
+    alt: "Volunteers organizing a blood donation camp, banners with 'Donate Blood, Save Lives' text, community event vibe."
+  },
+  { 
+    src: "/images/donation5.jpg", 
+    alt: "A doctor holding a blood donation certificate, smiling, hospital background, professional and trustworthy look."
   },
 ];
 
@@ -81,6 +114,32 @@ const DonationCenters = () => {
       <div className="flex-grow container mx-auto px-4 py-8">
         <h1 className="text-3xl font-bold mb-2">Blood Donation Centers</h1>
         <p className="text-gray-600 mb-6">Find blood donation centers near you and get directions, contact information, and opening hours.</p>
+        
+        {/* Photo Carousel */}
+        <div className="mb-8">
+          <Carousel className="w-full max-w-5xl mx-auto">
+            <CarouselContent>
+              {donationImages.map((image, index) => (
+                <CarouselItem key={index}>
+                  <div className="p-1">
+                    <Card>
+                      <CardContent className="flex aspect-video items-center justify-center p-0 overflow-hidden rounded-xl">
+                        <div className="relative w-full h-full bg-gray-200 flex items-center justify-center">
+                          {/* In a real application, this would be an actual image */}
+                          <div className="absolute inset-0 flex items-center justify-center p-4">
+                            <p className="text-sm text-gray-600 text-center">{image.alt}</p>
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious className="left-2" />
+            <CarouselNext className="right-2" />
+          </Carousel>
+        </div>
         
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Search and List Panel */}
