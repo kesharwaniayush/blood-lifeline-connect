@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import NavigationMenu from "@/components/NavigationMenu";
 import Footer from "@/components/Footer";
@@ -62,27 +61,27 @@ const donationCenters: DonationCenter[] = [
   },
 ];
 
-// Indian blood donation images for carousel
+// Blood donation camp images from local files
 const donationImages: DonationImage[] = [
   { 
-    src: "https://images.unsplash.com/photo-1615461066841-6116e61058f4?auto=format&fit=crop&w=1000&q=80", 
-    alt: "Indian blood donation camp with volunteers and donors in Mumbai"
+    src: "/images/donation1.jpg", 
+    alt: "Blood donation camp with volunteers assisting donors in Mumbai"
   },
   { 
-    src: "https://images.unsplash.com/photo-1579154204601-01588f351e67?auto=format&fit=crop&w=1000&q=80", 
-    alt: "Doctor examining blood samples at Red Cross blood donation drive in Delhi"
+    src: "/images/donation2.jpg", 
+    alt: "Medical professionals collecting blood samples at a donation drive in Delhi"
   },
   { 
-    src: "https://images.unsplash.com/photo-1606206429912-de48525940a5?auto=format&fit=crop&w=1000&q=80", 
-    alt: "Young Indian donor donating blood at a hospital in Bangalore"
+    src: "/images/donation3.jpg", 
+    alt: "Young donor donating blood at a hospital in Bangalore"
   },
   { 
-    src: "https://images.unsplash.com/photo-1583912086096-8c60d75a53f9?auto=format&fit=crop&w=1000&q=80", 
-    alt: "Community blood donation event with banners in Hindi and English in Hyderabad"
+    src: "/images/donation4.jpg", 
+    alt: "Community blood donation event with multilingual banners in Hyderabad"
   },
   { 
-    src: "https://images.unsplash.com/photo-1579154204914-4902c0adaab5?auto=format&fit=crop&w=1000&q=80", 
-    alt: "Medical professional preparing blood donation equipment at AIIMS hospital"
+    src: "/images/donation5.jpg", 
+    alt: "Medical team preparing blood donation equipment at AIIMS hospital"
   },
 ];
 
