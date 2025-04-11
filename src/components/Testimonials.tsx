@@ -1,30 +1,30 @@
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
-// Sample testimonials data
+// Updated testimonials with authentic Indian names
 const testimonials = [
   {
     id: 1,
-    name: "Sarah Johnson",
+    name: "Priya Patel",
     role: "Regular Donor",
     image: null,
-    initials: "SJ",
+    initials: "PP",
     quote: "I've been donating blood for 5 years now. The BloodLifeline platform makes it so much easier to find donation centers and track my impact. It feels amazing to know exactly how my donations help people in need.",
   },
   {
     id: 2,
-    name: "Michael Chen",
+    name: "Rahul Sharma",
     role: "Blood Recipient",
     image: null,
-    initials: "MC",
+    initials: "RS",
     quote: "After my accident, I needed multiple blood transfusions. Thanks to generous donors on BloodLifeline, I was able to receive the blood I needed quickly. I'm now a donor myself to give back to the community that saved me.",
   },
   {
     id: 3,
-    name: "Dr. Alicia Torres",
+    name: "Dr. Anjali Reddy",
     role: "Hospital Administrator",
     image: null,
-    initials: "AT",
+    initials: "AR",
     quote: "BloodLifeline has revolutionized how our hospital manages blood inventory. The real-time availability dashboard and emergency request system have significantly reduced our response time for critical cases.",
   },
 ];
