@@ -1,16 +1,19 @@
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/context/AuthContext";
 import { useToast } from "@/components/ui/use-toast";
 import NavigationMenu from "@/components/NavigationMenu";
 import Footer from "@/components/Footer";
 import AdminTable from "@/components/AdminTable";
+import { Button } from "@/components/ui/button";
+import { EyeOff, Eye } from "lucide-react";
 
 const Admin = () => {
   const { user, isLoading, isAdmin } = useAuth();
   const navigate = useNavigate();
   const { toast } = useToast();
+  const [isTableVisible, setIsTableVisible] = useState(true);
 
   // Redirect non-admin users with a notification
   useEffect(() => {
@@ -33,6 +36,10 @@ const Admin = () => {
     }
   }, [user, isLoading, navigate, isAdmin, toast]);
 
+  const toggleTableVisibility = () => {
+    setIsTableVisible(!isTableVisible);
+  };
+
   if (isLoading) {
     return <div className="min-h-screen flex items-center justify-center">Loading...</div>;
   }
@@ -51,8 +58,29 @@ const Admin = () => {
         </div>
 
         <div className="bg-white p-6 rounded-lg shadow-md mb-8">
-          <h2 className="text-xl font-semibold mb-4">User Management</h2>
-          <AdminTable />
+          <div className="flex justify-between items-center mb-4">
+            <h2 className="text-xl font-semibold">User Management</h2>
+            <Button 
+              variant="outline" 
+              size="sm" 
+              onClick={toggleTableVisibility}
+              className="flex items-center gap-2"
+            >
+              {isTableVisible ? (
+                <>
+                  <EyeOff className="h-4 w-4" />
+                  <span>Hide Table</span>
+                </>
+              ) : (
+                <>
+                  <Eye className="h-4 w-4" />
+                  <span>Show Table</span>
+                </>
+              )}
+            </Button>
+          </div>
+          
+          {isTableVisible && <AdminTable />}
         </div>
       </div>
       <Footer />
