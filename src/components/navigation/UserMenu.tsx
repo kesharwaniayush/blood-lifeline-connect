@@ -1,5 +1,5 @@
 
-import { User, LogOut, Shield } from "lucide-react";
+import { User, LogOut, Shield, Droplet, Heart } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import {
@@ -17,7 +17,7 @@ type UserMenuProps = {
 };
 
 export const UserMenu = ({ onLogout }: UserMenuProps) => {
-  const { user, isAdmin } = useAuth();
+  const { user, isAdmin, isDonor, isNeeder } = useAuth();
 
   if (!user) return null;
 
@@ -31,6 +31,29 @@ export const UserMenu = ({ onLogout }: UserMenuProps) => {
       .slice(0, 2);
   };
 
+  const getDashboardLink = () => {
+    if (isAdmin()) return "/admin";
+    if (isDonor()) return "/donor-dashboard";
+    if (isNeeder()) return "/needer-dashboard";
+    return "/profile";
+  };
+
+  const getRoleIcon = () => {
+    if (isAdmin()) return Shield;
+    if (isDonor()) return Droplet;
+    if (isNeeder()) return Heart;
+    return User;
+  };
+
+  const getRoleName = () => {
+    if (isAdmin()) return "Admin";
+    if (isDonor()) return "Donor";
+    if (isNeeder()) return "Recipient";
+    return "User";
+  };
+
+  const RoleIcon = getRoleIcon();
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -40,15 +63,32 @@ export const UserMenu = ({ onLogout }: UserMenuProps) => {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-56">
         <DropdownMenuLabel>{user.name}</DropdownMenuLabel>
-        <DropdownMenuLabel className="text-xs font-normal text-gray-500">{user.email}</DropdownMenuLabel>
+        <DropdownMenuLabel className="text-xs font-normal text-gray-500">
+          {user.email}
+          <div className="flex items-center mt-1 text-blood-600">
+            <RoleIcon className="h-3 w-3 mr-1" />
+            {getRoleName()}
+          </div>
+        </DropdownMenuLabel>
         <DropdownMenuSeparator />
+        
+        {/* Dashboard link based on role */}
+        <DropdownMenuItem asChild>
+          <Link to={getDashboardLink()} className="cursor-pointer">
+            <RoleIcon className="mr-2 h-4 w-4" />
+            <span>Dashboard</span>
+          </Link>
+        </DropdownMenuItem>
+        
+        {/* Profile link for all users */}
         <DropdownMenuItem asChild>
           <Link to="/profile" className="cursor-pointer">
             <User className="mr-2 h-4 w-4" />
             <span>Profile</span>
           </Link>
         </DropdownMenuItem>
-        {/* Only show admin menu item if user is an admin */}
+        
+        {/* Admin Panel for admins only */}
         {isAdmin() && (
           <DropdownMenuItem asChild>
             <Link to="/admin" className="cursor-pointer">
@@ -57,6 +97,7 @@ export const UserMenu = ({ onLogout }: UserMenuProps) => {
             </Link>
           </DropdownMenuItem>
         )}
+        
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={onLogout} className="cursor-pointer">
           <LogOut className="mr-2 h-4 w-4" />

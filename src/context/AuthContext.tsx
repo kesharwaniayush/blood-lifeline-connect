@@ -2,11 +2,14 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 
 // Define types for our context
+type UserRole = "donor" | "needer" | "admin" | "user";
+
 type User = {
   id: string;
   email: string;
   name: string;
-  role: "user" | "admin";
+  role: UserRole;
+  bloodType?: string;
 };
 
 type AuthContextType = {
@@ -15,6 +18,8 @@ type AuthContextType = {
   login: (email: string, password: string) => Promise<void>;
   logout: () => void;
   isAdmin: () => boolean;
+  isDonor: () => boolean;
+  isNeeder: () => boolean;
 };
 
 // Create the context with a default value
@@ -24,6 +29,8 @@ const AuthContext = createContext<AuthContextType>({
   login: async () => {},
   logout: () => {},
   isAdmin: () => false,
+  isDonor: () => false,
+  isNeeder: () => false,
 });
 
 // Mock users for demonstration purposes
@@ -33,14 +40,29 @@ const MOCK_USERS = [
     email: "admin@example.com",
     password: "admin123",
     name: "Admin User",
-    role: "admin" as const,
+    role: "admin" as UserRole,
   },
   {
     id: "2",
     email: "user@example.com",
     password: "user123",
     name: "Regular User",
-    role: "user" as const,
+    role: "user" as UserRole,
+  },
+  {
+    id: "3",
+    email: "donor@example.com",
+    password: "donor123",
+    name: "Blood Donor",
+    role: "donor" as UserRole,
+    bloodType: "O+",
+  },
+  {
+    id: "4",
+    email: "needer@example.com",
+    password: "needer123",
+    name: "Blood Needer",
+    role: "needer" as UserRole,
   },
 ];
 
@@ -82,8 +104,16 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     return user?.role === "admin";
   };
 
+  const isDonor = () => {
+    return user?.role === "donor";
+  };
+
+  const isNeeder = () => {
+    return user?.role === "needer";
+  };
+
   return (
-    <AuthContext.Provider value={{ user, isLoading, login, logout, isAdmin }}>
+    <AuthContext.Provider value={{ user, isLoading, login, logout, isAdmin, isDonor, isNeeder }}>
       {children}
     </AuthContext.Provider>
   );

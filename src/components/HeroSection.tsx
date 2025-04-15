@@ -2,8 +2,37 @@
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { Heart } from "lucide-react";
+import { useAuth } from "@/context/AuthContext";
 
 export const HeroSection = () => {
+  const { user, isDonor, isNeeder } = useAuth();
+
+  // Determine the appropriate button links based on authentication status
+  const getDonorLink = () => {
+    if (!user) return "/register";
+    if (isDonor()) return "/donor-dashboard";
+    return "/register";
+  };
+
+  const getNeederLink = () => {
+    if (!user) return "/request";
+    if (isNeeder()) return "/needer-dashboard";
+    return "/request";
+  };
+
+  // Dynamic button text based on auth status
+  const getDonorButtonText = () => {
+    if (!user) return "Become a Donor";
+    if (isDonor()) return "Donor Dashboard";
+    return "Become a Donor";
+  };
+
+  const getNeederButtonText = () => {
+    if (!user) return "Request Blood";
+    if (isNeeder()) return "Recipient Dashboard";
+    return "Request Blood";
+  };
+
   return (
     <div className="relative bg-gradient-to-b from-white to-blood-50">
       <div className="container mx-auto px-4 py-16 md:py-24">
@@ -20,13 +49,13 @@ export const HeroSection = () => {
             </p>
             <div className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4 justify-center md:justify-start">
               <Button asChild size="lg" className="text-md">
-                <Link to="/register">
-                  Become a Donor
+                <Link to={getDonorLink()}>
+                  {getDonorButtonText()}
                 </Link>
               </Button>
               <Button asChild variant="outline" size="lg" className="text-md border-blood-200 text-blood-700 hover:bg-blood-50">
-                <Link to="/request">
-                  Request Blood
+                <Link to={getNeederLink()}>
+                  {getNeederButtonText()}
                 </Link>
               </Button>
             </div>
