@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Search, MapPin, User } from "lucide-react";
 import NavigationMenu from "@/components/NavigationMenu";
@@ -9,10 +8,9 @@ import { Badge } from "@/components/ui/badge";
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/components/ui/table";
 
 const donors = [
-  // Mumbai donors
   {
     id: 1,
-    name: "Rajesh Kumar",
+    name: "Gajanan Aochar",
     bloodType: "O+",
     location: "Mumbai",
     lastDonation: "2025-03-01",
@@ -21,7 +19,7 @@ const donors = [
   },
   {
     id: 2,
-    name: "Anita Sharma",
+    name: "Samarth Shejul",
     bloodType: "A+",
     location: "Mumbai",
     lastDonation: "2025-03-12",
@@ -30,7 +28,7 @@ const donors = [
   },
   {
     id: 3,
-    name: "Vikram Malhotra",
+    name: "Shubham Chavan",
     bloodType: "B+",
     location: "Mumbai",
     lastDonation: "2025-02-20",
@@ -39,18 +37,16 @@ const donors = [
   },
   {
     id: 4,
-    name: "Meera Patel",
+    name: "Ayush Kesharwani",
     bloodType: "AB-",
     location: "Mumbai",
     lastDonation: "2025-01-15",
     status: "unavailable",
     distance: "6.7 km",
   },
-  
-  // Delhi donors
   {
     id: 5,
-    name: "Priya Sharma",
+    name: "Soham Kardile",
     bloodType: "A-",
     location: "Delhi",
     lastDonation: "2025-03-15",
@@ -59,7 +55,7 @@ const donors = [
   },
   {
     id: 6,
-    name: "Rahul Verma",
+    name: "Atharv Sanas",
     bloodType: "O-",
     location: "Delhi",
     lastDonation: "2025-02-10",
@@ -84,8 +80,6 @@ const donors = [
     status: "available",
     distance: "9.2 km",
   },
-  
-  // Bengaluru donors
   {
     id: 9,
     name: "Sonia Singh",
@@ -122,8 +116,6 @@ const donors = [
     status: "unavailable",
     distance: "8.4 km",
   },
-  
-  // Hyderabad donors
   {
     id: 13,
     name: "Vikram Reddy",
@@ -160,8 +152,6 @@ const donors = [
     status: "unavailable",
     distance: "7.8 km",
   },
-  
-  // Chennai donors
   {
     id: 17,
     name: "Neha Verma",
@@ -234,7 +224,7 @@ const DonorsList = () => {
         <h1 className="text-3xl font-bold mb-6 text-blood-700">Find Blood Donors</h1>
         <p className="text-gray-600 mb-8">Search for available blood donors near your location by blood type, distance, and availability.</p>
         
-        <div className="bg-white p-6 rounded-lg shadow-md mb-8 border border-blood-100">
+        <div className="bg-white p-6 rounded-lg shadow-md mb-8 border border-blood-200">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="relative">
               <Input
